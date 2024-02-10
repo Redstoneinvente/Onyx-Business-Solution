@@ -108,20 +108,133 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 1vw;
         }
 
+        /*
         .feature {
-            flex-basis: calc(33.33% - 20px);
-            margin: 10px;
-            padding: 20px;
+             flex-basis: calc(33.33% - 20px); 
+            flex: 0 0 32vw;
+            margin: 0.3vw;
+            padding: 0.5vw;
             border: 1px solid #ddd;
             border-radius: 10px;
-            transition: box-shadow 0.3s ease;
+            
+            img {
+                width: 600px;
+                height: 400px;
+            }
+
+            transition: box-shadow 0.3s ease all 100ms linear;
+
+            p, h3 {
+                display: none;
+                opacity: 0;
+                transition: all 500ms ease-in-out;
+            }
         }
 
         .feature:hover {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+            img {
+                width: 550px;
+                height: 350px;
+            }
+
+            p, h3 {
+                display: block;
+                opacity: 1;
+                transition: all 500ms ease-in-out;
+            }
+        }
+        */
+
+        .feature {
+            /* Keep responsive sizing using vw units */
+            flex: 0 0 32vw;
+            margin: 0.3vw;
+            padding: 0.5vw;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+
+            /* background-image: url("https://images.pexels.com/photos/36753/flower-purple-lical-blosso.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500"); */
+            background: rgba(255, 255, 255, 1) ;
+            background-repeat: no-repeat;
+            background-size:cover;
+
+            width: 20vw;
+            height: 40vh;
+
+            transition: all var(--transitionSpeedFeature); /* Separate transition for image */
+
+            /* Prevent image resizing from affecting container size */
+            overflow: hidden; /* Ensures image content overflows and doesn't stretch box */
+
+            img {
+                margin: 0px !important;
+                padding: 0px !important;
+                object-fit: contain;
+
+                width: 100%; /* Maintain aspect ratio while sizing to container */
+                height: 100%;
+                /* transition: width var(--transitionSpeedFeature);  */
+                /* Separate transition for image */
+                /* filter: opacity(0); */
+                
+                transition: all var(--transitionSpeedFeature) linear;
+            }
+
+            p, h3 {
+                font-size: calc(1rem + 0.2vw);
+
+                opacity: 0;
+                transition: all var(--transitionSpeedFeature) ease-in-out; /* Maintain existing transition */
+            }
+        }
+
+        .feature:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0);
+            margin: 0.3vw;
+            padding: 0.5vw;
+
+            transition: all var(--transitionSpeedFeature);
+
+            img {
+                margin: 0px !important;
+                height: 70%;
+                width: 70%; 
+
+                object-fit: contain;
+                filter: opacity(1) !important;
+
+                /* Adjust this value to control hover size reduction */
+                /* transition: width var(--transitionSpeedFeature) ease-in-out;  */
+                /* Separate transition for image */
+
+                
+                transition: all var(--transitionSpeedFeature);
+            }
+
+            p, h3 {
+                font-size: calc(1rem + 0.2vw);
+                opacity: 1;
+                max-width: 100%; /* Adjust as needed */
+                overflow: hidden;
+                
+                margin-top: 0px !important;
+
+                text-overflow: ellipsis;
+                line-clamp: 2; /* Show 2 lines by default, adjust as needed */
+
+                p {
+                    margin-bottom: 20px !important;
+                    padding-bottom: 20px !important;
+                }
+
+                transition: all var(--transitionSpeedFeature) ease-in-out; /* Maintain existing transition */
+            }
         }
 
         /* Sliding Images Section Styling */
@@ -136,19 +249,44 @@
             overflow: auto;
             width: 100%;
             /* margin-top: 20px; */
+            opacity: 1 !important;
+
+            transition: all 100ms ease-in-out;
         }
 
-        .slide {
-            flex: 0 0 800px;
-            margin-right: 20px;
+        .slide-container.hidden {
+            /* display: none; */
             overflow: hidden;
+            width: 100%;
+            position: absolute;
+            height: 0% !important;
+            /* margin-top: 20px; */
+
+            opacity: 0 !important;
+
+            transition: all 100ms ease-in-out;
+        }
+
+
+        .slide {
+            flex: 0 0 50vw;
+            margin-right: 1vw;
+            overflow: hidden;
+            transition: all 100ms linear;
         }
 
         .slide img {
-            width: 100%;
+            width: 30vw;
             height: auto;
+
+            margin: 0px !important;
+                padding: 0px !important;
+                object-fit: contain;
+
             border-radius: 10px; /* Add border radius for a cleaner look */
             /* //animation: slide 10s; */
+
+            transition: all 100ms linear;
         }
 
         @keyframes slide {
@@ -176,8 +314,19 @@
             text-align: center;
             padding: 20px;
         }
+
+        :root{
+            --transitionSpeedFeature: 250ms;
+        }
     </style>
 </head>
+
+<script>
+    function OnFold(){
+        document.getElementById("folded").classList.toggle("hidden");
+        document.getElementById('unfolded').classList.toggle('hidden');
+    }
+</script>
 
 <body>
 
@@ -209,28 +358,28 @@
     <!-- Feature Section -->
     <section id="features" class="features">
         <div class="feature">
-            <img src="https://via.placeholder.com/600x400" alt="Feature 1">
-            <h3>Feature 1</h3>
-            <p>Description for Feature 1.</p>
-        </div>
-
-        <div class="feature">
-            <img src="https://via.placeholder.com/601x400" alt="Feature 2">
-            <h3>Feature 2</h3>
-            <p>Description for Feature 2.</p>
-        </div>
-
-        <div class="feature">
-            <img src="https://via.placeholder.com/602x400" alt="Feature 3">
-            <h3>Feature 3</h3>
-            <p>Description for Feature 3.</p>
-        </div>
-
-        <div class="feature">
-            <img src="https://via.placeholder.com/602x400" alt="Feature 3">
-            <h3>Feature 3</h3>
-            <p>Description for Feature 3.</p>
-        </div>
+            <img src="./folded/40th Anniversary carbon bike folded.png" alt="DAHON 40th Anniversary Carbon Bike">
+            <h3>DAHON 40th Anniversary Carbon Folding Bike</h3>
+            <p>Celebrate DAHON's 40 years of innovation with this limited-edition carbon fiber folding bike. Lightweight, compact, and perfect for cyclists on the go.</p>
+          </div>
+          
+          <div class="feature">
+            <img src="./normal/Dream D6 Ginger copy.png" alt="Dream D6 Folding Bike">
+            <h3>Dream D6 Folding Bike</h3>
+            <p>The Dream D6 offers a smooth, comfortable ride thanks to its 6-speed drivetrain and ergonomic design. Ideal for commuting or leisurely weekend rides.</p>
+          </div>
+          
+          <div class="feature">
+            <img src="./normal/Speed D8 copy.png" alt="Speed D8 Folding Bike">
+            <h3>Speed D8 Folding Bike</h3>
+            <p>Conquer your commute with the Speed D8's 8-speed drivetrain and lightweight construction. Perfect for urban riders seeking speed and efficiency.</p>
+          </div>
+          
+          <div class="feature">
+            <img src="./folded/Vybe D7 folded copy.png" alt="Vybe D7 Folding Bike">
+            <h3>Vybe D7 Folding Bike</h3>
+            <p>The Vybe D7 combines agility and style with its 7-speed drivetrain and sleek design. Take it on adventures near or far, from city streets to scenic trails.</p>
+        </div>  
     </section>
 
     <!-- Sliding Images Section -->
@@ -258,15 +407,34 @@
     <section id="services">
         <h2>Our Services</h2>
         <p>Explore our premium services in distributing Dahon bikes and creating tailor-made software solutions.</p>
-        <div class="slide-container">
+        <button onclick="OnFold()">UnFold</button>
+        <div class="slide-container" id="folded">
             <div class="slide">
-                <img src="https://via.placeholder.com/900x400" alt="Slide Image 1">
+                <img src="./folded/40th Anniversary carbon bike folded.png" alt="Slide Image 1">
             </div>
             <div class="slide">
-                <img src="https://via.placeholder.com/901x400" alt="Slide Image 2">
+                <img src="./folded/Dream D6 Ginger Folded copy.jpg" alt="Slide Image 2">
             </div>
             <div class="slide">
-                <img src="https://via.placeholder.com/902x400" alt="Slide Image 3">
+                <img src="./folded/Speed D8 folded copy.png" alt="Slide Image 3">
+            </div>
+            <div class="slide">
+                <img src="./folded/Vybe D7 folded copy.png" alt="Slide Image 3">
+            </div>
+        </div>
+
+        <div class="slide-container hidden" id="unfolded">
+            <div class="slide">
+                <img src="./normal/40th Anniversary carbon bike unfold.png" alt="Slide Image 1">
+            </div>
+            <div class="slide">
+                <img src="./normal/Dream D6 Ginger copy.png" alt="Slide Image 2">
+            </div>
+            <div class="slide">
+                <img src="./normal/Speed D8 copy.png" alt="Slide Image 3">
+            </div>
+            <div class="slide">
+                <img src="./normal/Vybe D7 copy.png" alt="Slide Image 3">
             </div>
         </div>
     </section>
