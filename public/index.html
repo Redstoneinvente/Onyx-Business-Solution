@@ -23,6 +23,7 @@
             background-color: #14171a;
             padding: 20px;
             text-align: center;
+            vertical-align: middle;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -31,7 +32,9 @@
         #logo {
             display: inline-block;
             vertical-align: middle;
-            max-width: 80px; /* Adjust the size as needed */
+            margin-top: auto;
+            margin-bottom: auto;
+            max-width: 10%; /* Adjust the size as needed */
         }
 
         #company-name {
@@ -121,6 +124,51 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
+        /* Sliding Images Section Styling */
+        .sliding-images {
+            overflow: hidden;
+            /* width: 100%; */
+            /* margin-right: 20px; */
+        }
+
+        .slide-container {
+            display: flex;
+            overflow: auto;
+            width: 100%;
+            /* margin-top: 20px; */
+        }
+
+        .slide {
+            flex: 0 0 800px;
+            margin-right: 20px;
+            overflow: hidden;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px; /* Add border radius for a cleaner look */
+            /* //animation: slide 10s; */
+        }
+
+        @keyframes slide {
+            0% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            25% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+        }
+
         /* Footer Styling */
         footer {
             background-color: #14171a;
@@ -130,11 +178,12 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header with Logo and Company Name -->
     <header>
-        <div>
+        <div style="display: inline-flex;">
             <img id="logo" src="./logo.png" alt="Company Logo">
             <span id="company-name">Onyx Business Solution LTD</span>
         </div>
@@ -155,34 +204,49 @@
     <section id="home">
         <h1>Welcome to Onyx Business Solution LTD</h1>
         <p>Your premium destination for Dahon bikes and tailor-made software solutions.</p>
+    </section>
 
-        <!-- Feature Section -->
-        <div class="features">
-            <div class="feature">
-                <img src="https://usa.dahon.com/cdn/shop/files/20inWheel.png?v=1681410106" alt="Dahon Bike 20in Wheel">
-                <h3>Dahon Bike 20in Wheel</h3>
-                <p>Explore our range of Dahon bikes with 20in wheels. Perfect for a smooth and comfortable ride.</p>
-            </div>
+    <!-- Feature Section -->
+    <section id="features" class="features">
+        <div class="feature">
+            <img src="https://via.placeholder.com/600x400" alt="Feature 1">
+            <h3>Feature 1</h3>
+            <p>Description for Feature 1.</p>
+        </div>
 
-            <div class="feature">
-                <img src="https://usa.dahon.com/cdn/shop/files/16inWheel.png?v=1681410136" alt="Dahon Bike 16in Wheel">
-                <h3>Dahon Bike 16in Wheel</h3>
-                <p>Discover the agility and convenience of our bikes equipped with 16in wheels. Ideal for urban commuting.</p>
-            </div>
+        <div class="feature">
+            <img src="https://via.placeholder.com/601x400" alt="Feature 2">
+            <h3>Feature 2</h3>
+            <p>Description for Feature 2.</p>
+        </div>
 
-            <div class="feature">
-                <img src="https://usa.dahon.com/cdn/shop/files/24inWheel.png?v=1681410169" alt="Dahon Bike 24in Wheel">
-                <h3>Dahon Bike 24in Wheel</h3>
-                <p>Experience superior performance with our 24in wheel bikes. Designed for adventurous and dynamic rides.</p>
-            </div>
+        <div class="feature">
+            <img src="https://via.placeholder.com/602x400" alt="Feature 3">
+            <h3>Feature 3</h3>
+            <p>Description for Feature 3.</p>
+        </div>
 
-            <div class="feature">
-                <img src="https://usa.dahon.com/cdn/shop/files/14inWheel.png?v=1681410198" alt="Dahon Bike 14in Wheel">
-                <h3>Dahon Bike 14in Wheel</h3>
-                <p>Introducing our compact 14in wheel bikes. Perfect for those who value portability without compromising quality.</p>
-            </div>
+        <div class="feature">
+            <img src="https://via.placeholder.com/602x400" alt="Feature 3">
+            <h3>Feature 3</h3>
+            <p>Description for Feature 3.</p>
         </div>
     </section>
+
+    <!-- Sliding Images Section -->
+    <!-- <section id="sliding-images" class="sliding-images">
+        <div class="slide-container">
+            <div class="slide">
+                <img src="https://via.placeholder.com/900x400" alt="Slide Image 1">
+            </div>
+            <div class="slide">
+                <img src="https://via.placeholder.com/901x400" alt="Slide Image 2">
+            </div>
+            <div class="slide">
+                <img src="https://via.placeholder.com/902x400" alt="Slide Image 3">
+            </div>
+        </div>
+    </section> -->
 
     <!-- About Us Section -->
     <section id="about">
@@ -194,6 +258,17 @@
     <section id="services">
         <h2>Our Services</h2>
         <p>Explore our premium services in distributing Dahon bikes and creating tailor-made software solutions.</p>
+        <div class="slide-container">
+            <div class="slide">
+                <img src="https://via.placeholder.com/900x400" alt="Slide Image 1">
+            </div>
+            <div class="slide">
+                <img src="https://via.placeholder.com/901x400" alt="Slide Image 2">
+            </div>
+            <div class="slide">
+                <img src="https://via.placeholder.com/902x400" alt="Slide Image 3">
+            </div>
+        </div>
     </section>
 
     <!-- Team Section -->
@@ -216,7 +291,7 @@
 
     <!-- Footer Section -->
     <footer>
-        <p>&copy; 2023 Onyx Business Solutions LTD. All rights reserved.</p>
+        <p style="color: white;">&copy; 2023 Onyx Business Solutions LTD. All rights reserved.</p>
     </footer>
 
 </body>
