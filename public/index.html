@@ -5,30 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dahon Bikes</title>
     <script>
-        function addToCartAndRedirect() {
-            // Create a form dynamically to mimic the add-to-cart button
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = "https://onyx.mu/product/dahon-mariner-d8-black/";
+function addToCartAndRedirect() {
+    // Add a blurred overlay to the background
+    const overlay = document.createElement("div");
+    overlay.id = "loading-overlay";
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Semi-transparent black
+    overlay.style.backdropFilter = "blur(10px)"; // Blurs the background
+    overlay.style.zIndex = "9998";
+    document.body.appendChild(overlay);
 
-            // Add the hidden input for the add-to-cart functionality
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "add-to-cart";
-            input.value = "2416"; // Product ID for adding to the cart
-            form.appendChild(input);
+    // Add a spinner in the center of the screen
+    const spinner = document.createElement("div");
+    spinner.id = "loading-spinner";
+    spinner.style.position = "fixed";
+    spinner.style.top = "45%";
+    spinner.style.left = "50%";
+    spinner.style.transform = "translate(-50%, -50%)";
+    spinner.style.zIndex = "9999";
+    spinner.style.width = "60px";
+    spinner.style.height = "60px";
+    spinner.style.border = "5px solid rgba(255, 255, 255, 0.3)";
+    spinner.style.borderTop = "5px solid #fff";
+    spinner.style.borderRadius = "50%";
+    spinner.style.animation = "spin 1s linear infinite";
+    document.body.appendChild(spinner);
 
-            // Append the form to the body and submit it
-            document.body.appendChild(form);
-            form.submit();
+    // Add a fun loading message
+    const loadingMessage = document.createElement("div");
+    loadingMessage.id = "loading-message";
+    loadingMessage.style.position = "fixed";
+    loadingMessage.style.top = "55%";
+    loadingMessage.style.left = "50%";
+    loadingMessage.style.transform = "translate(-50%, -50%)";
+    loadingMessage.style.color = "#fff";
+    loadingMessage.style.fontSize = "18px";
+    loadingMessage.style.fontFamily = "Arial, sans-serif";
+    loadingMessage.style.textAlign = "center";
+    loadingMessage.style.zIndex = "9999";
+    loadingMessage.textContent = "Hang tight! We're adding this to your cart...";
+    document.body.appendChild(loadingMessage);
 
-            // Wait for the submission to complete, then redirect to the cart page
-            setTimeout(() => {
-                window.location.href = "https://onyx.mu/checkout-2/";
-                //https://onyx.mu/checkout-2/
-                //https://onyx.mu/cart-2/
-            }, 1000); // Adjust the delay if necessary
+    // Add keyframes for the spinning animation
+    const style = document.createElement("style");
+    style.innerHTML = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
+    `;
+    document.head.appendChild(style);
+
+    // Create a form dynamically to mimic the add-to-cart button
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://onyx.mu/product/dahon-mariner-d8-black/";
+
+    // Add the hidden input for the add-to-cart functionality
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "add-to-cart";
+    input.value = "2416"; // Product ID for adding to the cart
+    form.appendChild(input);
+
+    // Add a hidden iframe to handle the form submission
+    const iframe = document.createElement("iframe");
+    iframe.name = "hidden_iframe";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    // Set the form to submit into the iframe
+    form.target = "hidden_iframe";
+    document.body.appendChild(form);
+
+    // Add an event listener to detect when the iframe has finished loading
+    iframe.addEventListener("load", () => {
+        // Remove the loading spinner, message, and overlay
+        document.body.removeChild(spinner);
+        document.body.removeChild(loadingMessage);
+        document.body.removeChild(overlay);
+
+        // Redirect after the form submission completes
+        window.location.href = "https://onyx.mu/checkout-2/";
+    });
+
+    // Submit the form
+    form.submit();
+}
+
+
 
         function updateButtonColorsBasedOnImage(imageSelector, buttonSelector) {
             const img = document.querySelector(imageSelector);
