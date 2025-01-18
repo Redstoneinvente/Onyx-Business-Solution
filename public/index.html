@@ -72,29 +72,24 @@ function addToCartAndRedirect() {
     input.value = "2416"; // Product ID for adding to the cart
     form.appendChild(input);
 
-    // Add a hidden iframe to handle the form submission
-    const iframe = document.createElement("iframe");
-    iframe.name = "hidden_iframe";
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
-
-    // Set the form to submit into the iframe
-    form.target = "hidden_iframe";
+    // Append form to body
     document.body.appendChild(form);
 
-    // Add an event listener to detect when the iframe has finished loading
-    iframe.addEventListener("load", () => {
-        // Remove the loading spinner, message, and overlay
+    // Add an event listener to detect when the form has been submitted
+    form.addEventListener("submit", function() {
+        // Remove the loading spinner, message, and overlay after submission starts
         document.body.removeChild(spinner);
         document.body.removeChild(loadingMessage);
         document.body.removeChild(overlay);
-
-        // Redirect after the form submission completes
-        window.location.href = "https://onyx.mu/checkout-2/";
     });
 
-    // Submit the form
+    // Submit the form directly (no iframe)
     form.submit();
+
+    // Redirect to the checkout page once the form is successfully submitted
+    setTimeout(function() {
+        window.location.href = "https://onyx.mu/checkout-2/";
+    }, 1000); // Delay redirect to simulate a seamless flow
 }
 
 
