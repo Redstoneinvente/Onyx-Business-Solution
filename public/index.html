@@ -3,464 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onyx Business Solution LTD</title>
-    <style> 
-        /* Reset some default styles */
-        body, h1, h2, h3, p, ul, li {
+    <title>Dahon Bikes</title>
+    <script>
+        function addToCartAndRedirect() {
+            // Create a form dynamically to mimic the add-to-cart button
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "https://onyx.mu/product/dahon-mariner-d8-black/";
+
+            // Add the hidden input for the add-to-cart functionality
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "add-to-cart";
+            input.value = "2416"; // Product ID for adding to the cart
+            form.appendChild(input);
+
+            // Append the form to the body and submit it
+            document.body.appendChild(form);
+            form.submit();
+
+            // Wait for the submission to complete, then redirect to the cart page
+            setTimeout(() => {
+                window.location.href = "https://onyx.mu/checkout-2/";
+                //https://onyx.mu/checkout-2/
+                //https://onyx.mu/cart-2/
+            }, 1000); // Adjust the delay if necessary
+        }
+
+        function updateButtonColorsBasedOnImage(imageSelector, buttonSelector) {
+            const img = document.querySelector(imageSelector);
+            const buttons = document.querySelectorAll(buttonSelector);
+
+            if (img) {
+                const colorThief = new ColorThief();
+                img.onload = () => {
+                    const dominantColor = colorThief.getColor(img);
+                    buttons.forEach(button => {
+                        button.style.backgroundColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
+                        button.style.color = "#fff";
+                    });
+                };
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateButtonColorsBasedOnImage(".top-image img", ".button-wrapper button");
+        });
+    </script>
+    <style>
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f8f8f8;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e3e3e3, #ffffff);
+            overflow: hidden;
             color: #333;
         }
 
-        /* Header Styling */
-        header {
-            background-color: #14171a;
-            padding: 20px;
-            text-align: center;
-            vertical-align: middle;
+        .container {
+            width: 100%;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
             align-items: center;
+            position: relative;
+            max-height: 50%;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
         }
 
-        #logo {
-            display: inline-block;
-            vertical-align: middle;
-            margin-top: auto;
-            margin-bottom: auto;
-            max-width: 10%; /* Adjust the size as needed */
+        .image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 1;
         }
 
-        #company-name {
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 10px;
+        .image-container img {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container button {
+            bottom: 20px;
+            padding: 10px 20px;
+            background: #733439;
+            color: #D0D8D9;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
+            z-index: 3;
+        }
+
+        .image-container button:hover {
+            color: #733439 !important;
+            background: #BFADA3 !important;
+        }
+
+        .top-image {
+            border-bottom: 5px solid #222;
+            background-image: url('http://dahonfoldingbikes.com/wp-content/uploads/2022/08/Dahon-Mariner-Black-product-shot-door_D4J3961LR.jpg?id=346');
+        }
+
+        .all-bikes {
+            background-image: url('Images/AllBikes.jpg');
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
             color: #fff;
-            font-weight: bold;
-            font-size: 1.8em;
-            letter-spacing: 2px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 3;
         }
 
-        /* Navigation Bar Styling */
-        nav {
-            background-color: #14171a;
-            padding: 10px;
-            text-align: right;
+        .button-container {
+            display: flex;
+            justify-content: center; /* Align the buttons horizontally */
+            gap: 10px; /* Adds horizontal space between the buttons */
+            margin-top: 20px; /* Adds space from the top for positioning */
         }
 
-        ul {
-            list-style-type: none;
-        }
+        @media (orientation: landscape) {
+            .image-container {
+                max-height: none;
+                flex: 0 0 50%;
+            }
 
-        li {
-            display: inline;
-            margin-left: 20px;
+            .container {
+                flex-direction: row;
+            }
+
+            body {
+                justify-content: space-evenly;
+            }
         }
 
         a {
             text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: color 0.3s ease;
         }
 
-        a:hover {
-            color: #66c0f4;
-        }
-
-        /* Section Styling */
-        section {
-            background-color: #fff;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            border-radius: 15px;
-        }
-
-        h1, h2, h3 {
-            color: #14171a;
-            font-weight: bold;
-        }
-
-        p {
-            color: #555;
-            font-size: 1.1em;
-            margin-top: 20px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px; /* Add border radius for a cleaner look */
-            margin-top: 20px;
-        }
-
-        /* Feature Section Styling */
-        .features {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 1vw;
-        }
-
-        /*
-        .feature {
-             flex-basis: calc(33.33% - 20px); 
-            flex: 0 0 32vw;
-            margin: 0.3vw;
-            padding: 0.5vw;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            
-            img {
-                width: 600px;
-                height: 400px;
-            }
-
-            transition: box-shadow 0.3s ease all 100ms linear;
-
-            p, h3 {
-                display: none;
-                opacity: 0;
-                transition: all 500ms ease-in-out;
-            }
-        }
-
-        .feature:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-
-            img {
-                width: 550px;
-                height: 350px;
-            }
-
-            p, h3 {
-                display: block;
-                opacity: 1;
-                transition: all 500ms ease-in-out;
-            }
-        }
-        */
-
-        .feature {
-            /* Keep responsive sizing using vw units */
-            flex: 0 0 32vw;
-            margin: 0.3vw;
-            padding: 0.5vw;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-
-            /* background-image: url("https://images.pexels.com/photos/36753/flower-purple-lical-blosso.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500"); */
-            background: rgba(255, 255, 255, 1) ;
-            background-repeat: no-repeat;
-            background-size:cover;
-
-            width: 20vw;
-            height: 40vh;
-
-            transition: all var(--transitionSpeedFeature); /* Separate transition for image */
-
-            /* Prevent image resizing from affecting container size */
-            overflow: hidden; /* Ensures image content overflows and doesn't stretch box */
-
-            img {
-                margin: 0px !important;
-                padding: 0px !important;
-                object-fit: contain;
-
-                width: 100%; /* Maintain aspect ratio while sizing to container */
-                height: 100%;
-                /* transition: width var(--transitionSpeedFeature);  */
-                /* Separate transition for image */
-                /* filter: opacity(0); */
-                
-                transition: all var(--transitionSpeedFeature) linear;
-            }
-
-            p, h3 {
-                font-size: calc(1rem + 0.2vw);
-
-                opacity: 0;
-                transition: all var(--transitionSpeedFeature) ease-in-out; /* Maintain existing transition */
-            }
-        }
-
-        .feature:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0);
-            margin: 0.3vw;
-            padding: 0.5vw;
-
-            transition: all var(--transitionSpeedFeature);
-
-            img {
-                margin: 0px !important;
-                height: 70%;
-                width: 70%; 
-
-                object-fit: contain;
-                filter: opacity(1) !important;
-
-                /* Adjust this value to control hover size reduction */
-                /* transition: width var(--transitionSpeedFeature) ease-in-out;  */
-                /* Separate transition for image */
-
-                
-                transition: all var(--transitionSpeedFeature);
-            }
-
-            p, h3 {
-                font-size: calc(1rem + 0.2vw);
-                opacity: 1;
-                max-width: 100%; /* Adjust as needed */
-                overflow: hidden;
-                
-                margin-top: 0px !important;
-
-                text-overflow: ellipsis;
-                line-clamp: 2; /* Show 2 lines by default, adjust as needed */
-
-                p {
-                    margin-bottom: 20px !important;
-                    padding-bottom: 20px !important;
-                }
-
-                transition: all var(--transitionSpeedFeature) ease-in-out; /* Maintain existing transition */
-            }
-        }
-
-        /* Sliding Images Section Styling */
-        .sliding-images {
-            overflow: hidden;
-            /* width: 100%; */
-            /* margin-right: 20px; */
-        }
-
-        .slide-container {
-            display: flex;
-            overflow: auto;
-            width: 100%;
-            /* margin-top: 20px; */
-            opacity: 1 !important;
-
-            transition: all 100ms ease-in-out;
-        }
-
-        .slide-container.hidden {
-            /* display: none; */
-            overflow: hidden;
-            width: 100%;
+        .button-wrapper {
             position: absolute;
-            height: 0% !important;
-            /* margin-top: 20px; */
-
-            opacity: 0 !important;
-
-            transition: all 100ms ease-in-out;
+            bottom: 20px; /* Keep the buttons at the bottom of the section */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px; /* Space between the buttons */
+            z-index: 3;
         }
 
-
-        .slide {
-            flex: 0 0 50vw;
-            margin-right: 1vw;
-            overflow: hidden;
-            transition: all 100ms linear;
+        .button-wrapper button {
+            padding: 10px 20px;
+            background: #733439;
+            color: #D0D8D9;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease;
         }
 
-        .slide img {
-            width: 30vw;
-            height: auto;
-
-            margin: 0px !important;
-                padding: 0px !important;
-                object-fit: contain;
-
-            border-radius: 10px; /* Add border radius for a cleaner look */
-            /* //animation: slide 10s; */
-
-            transition: all 100ms linear;
-        }
-
-        @keyframes slide {
-            0% {
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            25% {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-        }
-
-        /* Footer Styling */
-        footer {
-            background-color: #14171a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        :root{
-            --transitionSpeedFeature: 250ms;
+        .button-wrapper button:hover {
+            background: #A6A6A4;
         }
     </style>
 </head>
-
-<script>
-    function OnFold(){
-        document.getElementById("folded").classList.toggle("hidden");
-        document.getElementById('unfolded').classList.toggle('hidden');
-    }
-</script>
-
 <body>
-
-    <!-- Header with Logo and Company Name -->
-    <header>
-        <div style="display: inline-flex;">
-            <img id="logo" src="./logo.png" alt="Company Logo">
-            <span id="company-name">Onyx Business Solution LTD</span>
-        </div>
-        <!-- Navigation Bar -->
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Home Section -->
-    <section id="home">
-        <h1>Welcome to Onyx Business Solution LTD</h1>
-        <p>Your premium destination for Dahon bikes and tailor-made software solutions.</p>
-    </section>
-
-    <!-- Feature Section -->
-    <section id="features" class="features">
-        <div class="feature">
-            <img src="./folded/40th Anniversary carbon bike folded.png" alt="DAHON 40th Anniversary Carbon Bike">
-            <h3>DAHON 40th Anniversary Carbon Folding Bike</h3>
-            <p>Celebrate DAHON's 40 years of innovation with this limited-edition carbon fiber folding bike. Lightweight, compact, and perfect for cyclists on the go.</p>
-          </div>
-          
-          <div class="feature">
-            <img src="./normal/Dream D6 Ginger copy.png" alt="Dream D6 Folding Bike">
-            <h3>Dream D6 Folding Bike</h3>
-            <p>The Dream D6 offers a smooth, comfortable ride thanks to its 6-speed drivetrain and ergonomic design. Ideal for commuting or leisurely weekend rides.</p>
-          </div>
-          
-          <div class="feature">
-            <img src="./normal/Speed D8 copy.png" alt="Speed D8 Folding Bike">
-            <h3>Speed D8 Folding Bike</h3>
-            <p>Conquer your commute with the Speed D8's 8-speed drivetrain and lightweight construction. Perfect for urban riders seeking speed and efficiency.</p>
-          </div>
-          
-          <div class="feature">
-            <img src="./folded/Vybe D7 folded copy.png" alt="Vybe D7 Folding Bike">
-            <h3>Vybe D7 Folding Bike</h3>
-            <p>The Vybe D7 combines agility and style with its 7-speed drivetrain and sleek design. Take it on adventures near or far, from city streets to scenic trails.</p>
-        </div>  
-    </section>
-
-    <!-- Sliding Images Section -->
-    <!-- <section id="sliding-images" class="sliding-images">
-        <div class="slide-container">
-            <div class="slide">
-                <img src="https://via.placeholder.com/900x400" alt="Slide Image 1">
-            </div>
-            <div class="slide">
-                <img src="https://via.placeholder.com/901x400" alt="Slide Image 2">
-            </div>
-            <div class="slide">
-                <img src="https://via.placeholder.com/902x400" alt="Slide Image 3">
+    <div class="container">
+        <!-- Current model image -->
+        <div class="image-container top-image">
+            <span class="text-overlay">Current Model: Mariner D8</span>
+            <a href="https://onyx.mu/product/dahon-mariner-d8-black/" target="_blank">
+                <img src="http://dahonfoldingbikes.com/wp-content/uploads/2022/08/Dahon-Mariner-Black-product-shot-door_D4J3961LR.jpg?id=346" alt="Current Dahon Bike Model">
+            </a>
+            <div class="button-wrapper">
+                <button onclick="addToCartAndRedirect()">Get yours now!</button>
+                <button onclick="window.open('https://onyx.mu/product/dahon-mariner-d8-black/', '_blank')">View More</button>
             </div>
         </div>
-    </section> -->
+        
 
-    <!-- About Us Section -->
-    <section id="about">
-        <h2>About Us</h2>
-        <p>Discover our journey, achievements, and the dedicated team behind our premium services.</p>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services">
-        <h2>Our Services</h2>
-        <p>Explore our premium services in distributing Dahon bikes and creating tailor-made software solutions.</p>
-        <button onclick="OnFold()">UnFold</button>
-        <div class="slide-container" id="folded">
-            <div class="slide">
-                <img src="./folded/40th Anniversary carbon bike folded.png" alt="Slide Image 1">
-            </div>
-            <div class="slide">
-                <img src="./folded/Dream D6 Ginger Folded copy.jpg" alt="Slide Image 2">
-            </div>
-            <div class="slide">
-                <img src="./folded/Speed D8 folded copy.png" alt="Slide Image 3">
-            </div>
-            <div class="slide">
-                <img src="./folded/Vybe D7 folded copy.png" alt="Slide Image 3">
-            </div>
+        <!-- All bikes image -->
+        <div class="image-container all-bikes">
+            <span class="text-overlay">Explore All Bikes</span>
+            <a href="https://onyx.mu/product-category/bikes/" target="_blank">
+                <img src="Images/AllBikes.jpg" alt="All Dahon Bikes">
+            </a>
+            <button onclick="window.open('https://onyx.mu/product-category/bikes/', '_blank')" style="position: absolute;">Browse All</button>
         </div>
-
-        <div class="slide-container hidden" id="unfolded">
-            <div class="slide">
-                <img src="./normal/40th Anniversary carbon bike unfold.png" alt="Slide Image 1">
-            </div>
-            <div class="slide">
-                <img src="./normal/Dream D6 Ginger copy.png" alt="Slide Image 2">
-            </div>
-            <div class="slide">
-                <img src="./normal/Speed D8 copy.png" alt="Slide Image 3">
-            </div>
-            <div class="slide">
-                <img src="./normal/Vybe D7 copy.png" alt="Slide Image 3">
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section id="team">
-        <h2>Our Team</h2>
-        <p>Meet the talented individuals who drive innovation and excellence at Onyx Business Solutions LTD.</p>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog">
-        <h2>Blog</h2>
-        <p>Stay updated with the latest trends and insights in the biking and software development industries.</p>
-    </section>
-
-    <!-- Contact Us Section -->
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Get in touch with us. We're eager to assist you in the most premium way possible!</p>
-    </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <p style="color: white;">&copy; 2023 Onyx Business Solutions LTD. All rights reserved.</p>
-    </footer>
-
+    </div>
 </body>
 </html>
