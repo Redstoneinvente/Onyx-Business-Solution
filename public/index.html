@@ -144,6 +144,7 @@
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" rows="4">I am interested in buying a folding bike.</textarea>
             </div>
+            <input type="date" id="dateInput" name="selectedDate">
             <button type="submit">Send Inquiry</button>
             <div class="loader"></div>
         </form>
@@ -162,6 +163,19 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('dateInput');
+            const currentDate = new Date();
+
+            // Format the date as YYYY-MM-DD
+            const year = currentDate.getFullYear();
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+
+            dateInput.value = formattedDate;
+        });
 
         // Function to send data to Firebase
         async function sendToFirebase(data) {
@@ -202,8 +216,16 @@
                 message: form.message.value
             };
 
+            const formFireData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                message: form.message.value,
+                date: form.dateInput.value
+            };
+
             try {
-                await sendToFirebase(formData);
+                await sendToFirebase(formFireData);
                 sendWhatsAppMessage(formData);
 
                 // Show a success message (replace with your preferred method)
