@@ -141,6 +141,14 @@
                 <input type="tel" id="phone" name="phone" required>
             </div>
             <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City/Town:</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" rows="4">I am interested in buying a folding bike.</textarea>
             </div>
@@ -190,8 +198,8 @@
 
         // Function to send WhatsApp message (This will open WhatsApp)
         function sendWhatsAppMessage(data) {
-            const phoneNumber = "+23059298322"; // Replace with your WhatsApp number (with country code)
-            const message = `New Bike Inquiry:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`;
+            const phoneNumber = "+23057651234"; // Replace with your WhatsApp number (with country code)
+            const message = `New Bike Inquiry from Azuri:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nAddress: ${data.address}\nCity: ${data.city}\nMessage: ${data.message}`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
             window.open(whatsappURL, '_blank');
@@ -213,7 +221,9 @@
                 name: form.name.value,
                 email: form.email.value,
                 phone: form.phone.value,
-                message: form.message.value
+                message: form.message.value,
+                address: form.address.value,
+                city: form.city.value
             };
 
             const formFireData = {
@@ -221,7 +231,9 @@
                 email: form.email.value,
                 phone: form.phone.value,
                 message: form.message.value,
-                date: form.dateInput.value
+                date: form.dateInput.value,
+                address: form.address.value,
+                city: form.city.value
             };
 
             try {
@@ -229,7 +241,7 @@
                 sendWhatsAppMessage(formData);
 
                 // Show a success message (replace with your preferred method)
-                alert("Inquiry sent successfully!");
+                //alert("Inquiry sent successfully!");
 
                 // Reset the form
                 form.reset();
