@@ -1,120 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dahon Bikes</title>
-    <script>
-function addToCartAndRedirect() {
-    // Add a blurred overlay to the background
-    const overlay = document.createElement("div");
-    overlay.id = "loading-overlay";
-    overlay.style.position = "fixed";
-    overlay.style.top = "0";
-    overlay.style.left = "0";
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Semi-transparent black
-    overlay.style.backdropFilter = "blur(10px)"; // Blurs the background
-    overlay.style.zIndex = "9998";
-    document.body.appendChild(overlay);
-
-    // Add a spinner in the center of the screen
-    const spinner = document.createElement("div");
-    spinner.id = "loading-spinner";
-    spinner.style.position = "fixed";
-    spinner.style.top = "45%";
-    spinner.style.left = "50%";
-    spinner.style.transform = "translate(-50%, -50%)";
-    spinner.style.zIndex = "9999";
-    spinner.style.width = "60px";
-    spinner.style.height = "60px";
-    spinner.style.border = "5px solid rgba(255, 255, 255, 0.3)";
-    spinner.style.borderTop = "5px solid #fff";
-    spinner.style.borderRadius = "50%";
-    spinner.style.animation = "spin 1s linear infinite";
-    document.body.appendChild(spinner);
-
-    // Add a fun loading message
-    const loadingMessage = document.createElement("div");
-    loadingMessage.id = "loading-message";
-    loadingMessage.style.position = "fixed";
-    loadingMessage.style.top = "55%";
-    loadingMessage.style.left = "50%";
-    loadingMessage.style.transform = "translate(-50%, -50%)";
-    loadingMessage.style.color = "#fff";
-    loadingMessage.style.fontSize = "18px";
-    loadingMessage.style.fontFamily = "Arial, sans-serif";
-    loadingMessage.style.textAlign = "center";
-    loadingMessage.style.zIndex = "9999";
-    loadingMessage.textContent = "Hang tight! We're adding this to your cart...";
-    document.body.appendChild(loadingMessage);
-
-    // Add keyframes for the spinning animation
-    const style = document.createElement("style");
-    style.innerHTML = `
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Create a form dynamically to mimic the add-to-cart button
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "https://onyx.mu/product/dahon-mariner-d8-black/";
-
-    // Add the hidden input for the add-to-cart functionality
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "add-to-cart";
-    input.value = "2416"; // Product ID for adding to the cart
-    form.appendChild(input);
-
-    // Append form to body
-    document.body.appendChild(form);
-
-    // Add an event listener to detect when the form has been submitted
-    form.addEventListener("submit", function() {
-        // Remove the loading spinner, message, and overlay after submission starts
-        document.body.removeChild(spinner);
-        document.body.removeChild(loadingMessage);
-        document.body.removeChild(overlay);
-    });
-
-    // Submit the form directly (no iframe)
-    form.submit();
-
-    // Redirect to the checkout page once the form is successfully submitted
-    setTimeout(function() {
-        window.location.href = "https://onyx.mu/checkout-2/";
-    }, 1000); // Delay redirect to simulate a seamless flow
-}
-
-
-
-        function updateButtonColorsBasedOnImage(imageSelector, buttonSelector) {
-            const img = document.querySelector(imageSelector);
-            const buttons = document.querySelectorAll(buttonSelector);
-
-            if (img) {
-                const colorThief = new ColorThief();
-                img.onload = () => {
-                    const dominantColor = colorThief.getColor(img);
-                    buttons.forEach(button => {
-                        button.style.backgroundColor = `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})`;
-                        button.style.color = "#fff";
-                    });
-                };
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            updateButtonColorsBasedOnImage(".top-image img", ".button-wrapper button");
-        });
-    </script>
+    <title>Dahon Bikes Inquiry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -123,181 +18,209 @@ function addToCartAndRedirect() {
 
         body {
             font-family: 'Roboto', sans-serif;
+            background: url('./Images/AllBikes.jpg') center/cover no-repeat; /* Background image */
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #e3e3e3, #ffffff);
-            overflow: hidden;
-            color: #333;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
         .container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .image-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            max-height: 50%;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .image-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            z-index: 1;
-        }
-
-        .image-container img {
-            width: auto;
-            height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            transition: transform 0.5s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
             border-radius: 8px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
         }
 
-        .image-container img:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.3);
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
         }
 
-        .image-container button {
-            bottom: 50px;
-            padding: 10px 20px;
-            background: #733439;
-            color: #D0D8D9;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s ease;
-            z-index: 3;
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .image-container button:hover {
-            color: #733439 !important;
-            background: #BFADA3 !important;
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
         }
 
-        .top-image {
-            border-bottom: 5px solid #222;
-            background-image: url('http://dahonfoldingbikes.com/wp-content/uploads/2022/08/Dahon-Mariner-Black-product-shot-door_D4J3961LR.jpg?id=346');
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
         }
 
-        .all-bikes {
-            background-image: url('Images/AllBikes.jpg');
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
         }
 
-        .text-overlay {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.7);
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            background: #007bff;
             color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            z-index: 3;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center; /* Align the buttons horizontally */
-            gap: 10px; /* Adds horizontal space between the buttons */
-            margin-top: 20px; /* Adds space from the top for positioning */
-        }
-
-        @media (orientation: landscape) {
-            .image-container {
-                max-height: none;
-                flex: 0 0 50%;
-            }
-
-            .container {
-                flex-direction: row;
-            }
-
-            body {
-                justify-content: space-evenly;
-            }
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .button-wrapper {
-            position: absolute;
-            bottom: 20px; /* Keep the buttons at the bottom of the section */
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px; /* Space between the buttons */
-            z-index: 3;
-        }
-
-        .button-wrapper button {
-            padding: 10px 20px;
-            background: #733439;
-            color: #D0D8D9;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s ease;
+            font-size: 1rem;
+            transition: background 0.2s;
+            width: 100%;
         }
 
-        .button-wrapper button:hover {
-            background: #A6A6A4;
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading Spinner */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <!-- Current model image -->
-        <div class="image-container top-image">
-            <span class="text-overlay">Current Model: Mariner D8</span>
-            <a href="https://onyx.mu/product/dahon-mariner-d8-black/" target="_blank">
-                <img src="http://dahonfoldingbikes.com/wp-content/uploads/2022/08/Dahon-Mariner-Black-product-shot-door_D4J3961LR.jpg?id=346" alt="Current Dahon Bike Model">
-            </a>
-            <div class="button-wrapper">
-                <button onclick="addToCartAndRedirect()">Get yours now!</button>
-                <button onclick="window.open('https://onyx.mu/product/dahon-mariner-d8-black/', '_blank')">View More</button>
+        <h1>Dahon Bikes Inquiry Form</h1>
+        <form id="inquiryForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
             </div>
-        </div>
-        
-
-        <!-- All bikes image -->
-        <div class="image-container all-bikes">
-            <span class="text-overlay">Explore All Bikes</span>
-            <a href="https://onyx.mu/product-category/bikes/" target="_blank">
-                <img src="Images/AllBikes.jpg" alt="All Dahon Bikes">
-            </a>
-            <button onclick="window.open('https://onyx.mu/product-category/bikes/', '_blank')" style="position: absolute;">Browse All</button>
-        </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4">I am interested in buying a folding bike.</textarea>
+            </div>
+            <button type="submit">Send Inquiry</button>
+            <div class="loader"></div>
+        </form>
     </div>
+
+    <script type="module">
+        // Import Firebase modules (Make sure you have Firebase SDK included)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+
+        // Firebase Configuration (Replace with your actual config)
+        const firebaseConfig = {
+            databaseURL: "https://vsg-marketing-website-default-rtdb.firebaseio.com/" // Replace with your Firebase project's database URL
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Function to send data to Firebase
+        async function sendToFirebase(data) {
+            try {
+                const inquiriesRef = ref(db, 'inquiries'); // 'inquiries' is the node name in your Firebase database
+                await push(inquiriesRef, data);
+                console.log("Data sent to Firebase successfully!");
+            } catch (error) {
+                console.error("Error sending data to Firebase:", error);
+            }
+        }
+
+        // Function to send WhatsApp message (This will open WhatsApp)
+        function sendWhatsAppMessage(data) {
+            const phoneNumber = "+23059298322"; // Replace with your WhatsApp number (with country code)
+            const message = `New Bike Inquiry:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Handle form submission
+        const form = document.getElementById('inquiryForm');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const loader = form.querySelector('.loader');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Disable the button and show the loader
+            submitButton.disabled = true;
+            loader.style.display = 'block';
+
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                message: form.message.value
+            };
+
+            try {
+                await sendToFirebase(formData);
+                sendWhatsAppMessage(formData);
+
+                // Show a success message (replace with your preferred method)
+                alert("Inquiry sent successfully!");
+
+                // Reset the form
+                form.reset();
+            } catch (error) {
+                console.error("Error processing inquiry:", error);
+                alert("Failed to send inquiry. Please try again.");
+            } finally {
+                // Re-enable the button and hide the loader
+                submitButton.disabled = false;
+                loader.style.display = 'none';
+            }
+        });
+    </script>
 </body>
+
 </html>
